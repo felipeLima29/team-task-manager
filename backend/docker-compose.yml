@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:15
+    container_name: team-task-manager-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: team_task_manager
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
