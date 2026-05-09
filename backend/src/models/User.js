@@ -4,7 +4,7 @@ import connection from '../database/index.js';
 const User = connection.define('users', {
     id: {
         type: DataTypes.UUID,
-        autoIncrement: true,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
     name: {
@@ -20,6 +20,9 @@ const User = connection.define('users', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+}, {
+    timestamps: true,
+    paranoid: true,
 });
 
 export default User;

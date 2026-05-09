@@ -1,9 +1,12 @@
+import { DataTypes } from "sequelize";
 import connection from "../database";
+import Projects from "./Projects";
+import User from "./User";
 
 const Tasks = connection.define('tasks', {
     id: {
         type: DataTypes.UUID,
-        autoIncrement: true,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
     },
     title: {
@@ -34,6 +37,15 @@ const Tasks = connection.define('tasks', {
             key: 'id',
         },
     },
+}, {
+    timestamps: true,
+    paranoid: true,
 });
+
+Tasks.belongsTo(Projects, { foreignKey: 'projectId' });
+Tasks.belongsTo(User, { foreignKey: 'assignedTo' });
+
+Projects.hasMany(Tasks, { foreignKey: 'projectId' });
+User.hasMany(Tasks, { foreignKey: 'assignedTo' });
 
 export default Tasks;
