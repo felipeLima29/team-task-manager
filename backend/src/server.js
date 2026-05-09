@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connection from './database/index.js';
+import authRoutes from './routes/AuthRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -14,8 +15,10 @@ app.listen(process.env.PORT, () => {
 
 app.get('/get', (req, res) => {res.json({message: 'hello world'})});
 
+app.use('/auth', authRoutes);
+
 const startServer = async () => {
-    await connection.sync({ alter: true });
+    await connection.sync();
     console.log('Banco de dados conectado e sincronizado.');
 };
 
