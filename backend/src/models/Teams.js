@@ -12,3 +12,5 @@ const Teams = connection.define('teams', {
         allowNull: false,
     }
 })
+
+export default Teams;
