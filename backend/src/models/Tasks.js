@@ -1,7 +1,5 @@
 import { DataTypes } from "sequelize";
-import connection from "../database";
-import Projects from "./Projects";
-import User from "./User";
+import connection from "../database/index.js";
 
 const Tasks = connection.define('tasks', {
     id: {
@@ -41,11 +39,5 @@ const Tasks = connection.define('tasks', {
     timestamps: true,
     paranoid: true,
 });
-
-Tasks.belongsTo(Projects, { foreignKey: 'projectId' });
-Tasks.belongsTo(User, { foreignKey: 'assignedTo' });
-
-Projects.hasMany(Tasks, { foreignKey: 'projectId' });
-User.hasMany(Tasks, { foreignKey: 'assignedTo' });
 
 export default Tasks;

@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
-import connection from "../database";
-import Teams from "./Teams";
+import connection from "../database/index.js";
 
 const Projects = connection.define('projects', {
 
@@ -27,14 +26,6 @@ const Projects = connection.define('projects', {
 }, {
     timestamps: true,
     paranoid: true,
-});
-
-Projects.belongsTo(Teams, {
-    foreignKey: 'teamId',
-});
-
-Teams.hasMany(Projects, {
-    foreignKey: 'teamId',
 });
 
 export default Projects;
