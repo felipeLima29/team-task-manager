@@ -1,5 +1,6 @@
-import { AppError } from "../errors/AppError.js";
+import AppError from "../errors/AppError.js";
 import User from "../models/User.js";
+import { cryptPassword } from "../utils/hashPassword.js";
 
 class AuthService {
     async register(userDto) {
@@ -7,7 +8,12 @@ class AuthService {
         if (userExists) {
             throw new AppError("User already exists", 400);
         }
-        const user = await User.create(userDto);
+        const hashPassword = await cryptPassword(userDto.password);
+
+        const user = await User.create({
+            ...userDto,
+            password: hashPassword,
+        });
         return user;
     }
 }

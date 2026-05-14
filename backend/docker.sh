@@ -9,4 +9,4 @@ sleep 5
 echo "Sincronizando banco..."
 node src/database/sync.js
 
-echo "Tudo pronto 🚀"
+echo "Tudo pronto."
