@@ -18,12 +18,15 @@ class TeamService {
 
     async listAll(userId) {
         const teams = await Teams.findAll({
+            attributes: ['id', 'name'],
+            
             include: [
                 {
                     model: UserTeams,
                     where: {
-                        userId
-                    }
+                        userId,
+                    },
+                    attributes: ['role'],
                 }
             ]
         });

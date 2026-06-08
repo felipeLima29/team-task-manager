@@ -10,15 +10,20 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
-app.listen(process.env.PORT, () => {
-    console.log('Servidor rodando na porta ', process.env.PORT);
+app.use((req, res, next) => {
+    console.log("REQ:", req.method, req.url);
+    next();
 });
+app.use(cors());
 
 app.use('/auth', authRoutes);
 app.use('/team', teamRoutes);
 app.use('/user', userRoutes);
+
+app.listen(process.env.PORT, () => {
+    console.log('Servidor rodando na porta ', process.env.PORT);
+});
 
 const startServer = async () => {
     await connection.sync();

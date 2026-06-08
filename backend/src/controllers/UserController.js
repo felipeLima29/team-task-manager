@@ -4,6 +4,11 @@ import userService from "../services/UserService.js";
 class UserController {
     async getProfile(req, res) {
         try {
+            console.log("controller entrou");
+
+            return res.json({
+                ok: true
+            });
             const userId = req.userId;
             const user = await userService.getProfile(userId);
 
