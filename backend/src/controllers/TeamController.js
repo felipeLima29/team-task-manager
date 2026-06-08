@@ -18,6 +18,21 @@ class TeamController {
             });
         }
     }
+
+    async listAll(req, res) {
+        try {
+            const teams = await teamService.listAll(req.userId);
+            return res.json(teams);
+        } catch (error) {
+            console.log(error);
+            if (error instanceof AppError) {
+                return res.status(error.statusCode).json({ error: error.message });
+            }
+            return res.status(500).json({
+                error: "Erro interno do servidor. Tente novamente mais tarde.",
+            });
+        }
+    }
 }
 
 const teamController = new TeamController();

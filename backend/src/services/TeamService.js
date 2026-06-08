@@ -12,8 +12,22 @@ class TeamService {
             teamId: team.id,
             role: 'admin',
         });
-        
+
         return team;
+    }
+
+    async listAll(userId) {
+        const teams = await Teams.findAll({
+            include: [
+                {
+                    model: UserTeams,
+                    where: {
+                        userId
+                    }
+                }
+            ]
+        });
+        return teams;
     }
 }
 
