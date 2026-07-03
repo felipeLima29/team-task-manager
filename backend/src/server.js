@@ -6,6 +6,7 @@ import authRoutes from './routes/AuthRoutes.js';
 import teamRoutes from './routes/TeamRoutes.js';
 import userRoutes from './routes/UserRoutes.js';
 import './models/associations.js';
+import projectRoutes from './routes/ProjectRoutes.js';
 dotenv.config();
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(cors());
 app.use('/auth', authRoutes);
 app.use('/team', teamRoutes);
 app.use('/user', userRoutes);
+app.use('/project', projectRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log('Servidor rodando na porta ', process.env.PORT);
