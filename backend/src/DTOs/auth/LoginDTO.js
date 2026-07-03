@@ -1,8 +1,9 @@
 import { isValidEmail } from "../../utils/validators.js";
 
 class LoginDTO {
-    constructor(body) {
-        const { email, password } = body;
+    constructor(body = {}) {
+        const email = body.email?.trim();
+        const password = body.password?.trim();
 
         if (!email || !password) {
             throw new AppError("Preencha todos os campos.", 400);

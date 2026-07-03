@@ -2,8 +2,11 @@ import AppError from "../../errors/AppError.js";
 import { isValidEmail } from "../../utils/validators.js";
 
 class RegisterDTO {
-    constructor(body) {
-        const { name, email, password } = body;
+    constructor(body = {}) {
+        const name = body.name?.trim();
+        const email = body.email?.trim().toLowerCase();
+        const password = body.password?.trim();
+
         if (!name || !email || !password) {
             throw new AppError("Preencha todos os campos.", 400);
         }

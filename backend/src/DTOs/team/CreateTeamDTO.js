@@ -1,8 +1,8 @@
 import AppError from "../../errors/AppError.js";
 
 class CreateTeamDTO {
-    constructor(body) {
-        const { name } = body;
+    constructor(body = {}) {
+        const  name = body.name?.trim();
         if(!name) {
             throw new AppError("Preencha todos os campos.", 400);
         }
