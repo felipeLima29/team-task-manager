@@ -104,7 +104,28 @@ class TaskService {
         return taskDetails;
     }
 
-    async 
+    async updateTaskStatus(taskId, statusDTO, userId) {
+        const verifyTask = await Tasks.findByPk(taskId, {
+            attributes: ['id', 'title', 'description', 'status', 'projectId'],
+        });
+        if (!verifyTask) { throw new AppError('Tarefa não encontrada', 404); }
+        const projectOfTask = verifyTask.projectId;
+
+        const verifyProject = await Projects.findByPk(projectOfTask);
+        if (!verifyProject) { throw new AppError('Projeto não encontrado', 404); }
+
+        const verifyUserInTeam = await UserTeams.findOne({
+            where: {
+                userId,
+                teamId: verifyProject.teamId,
+            }
+        });
+        if (!verifyUserInTeam) { throw new AppError('Usuário não pertence à equipe do projeto', 403); }
+
+        verifyTask.status = statusDTO.status;
+        await verifyTask.save();
+        return verifyTask;
+    }
 }
 
 const taskService = new TaskService();

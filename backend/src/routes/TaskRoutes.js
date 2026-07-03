@@ -7,5 +7,6 @@ const taskRoutes = Router();
 taskRoutes.post('/projects/:projectId/tasks', authMiddleware, taskController.createTask);
 taskRoutes.get('/projects/:projectId/tasks', authMiddleware, taskController.listTasks);
 taskRoutes.get('/tasks/:taskId', authMiddleware, taskController.listTaskById);
+taskRoutes.patch('/tasks/:taskId/status', authMiddleware, taskController.updateTaskStatus);
 
 export default taskRoutes;
