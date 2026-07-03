@@ -18,6 +18,21 @@ class TaskController {
             });
         }
     }
+
+    async listTasks(req, res) {
+        try {
+            const tasks = await taskService.listTasks(req.params.projectId, req.userId);
+            return res.status(200).json(tasks);
+        } catch (error) {
+            console.log(error);
+            if (error instanceof AppError) {
+                return res.status(error.statusCode).json({ error: error.message });
+            }
+            return res.status(500).json({
+                error: "Erro interno do servidor. Tente novamente mais tarde.",
+            });
+        }
+    }
 }
 
 const taskController = new TaskController();
