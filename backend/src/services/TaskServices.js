@@ -25,7 +25,7 @@ class TaskService {
         if (!verifyUser) {
             throw new AppError('Usuário não encontrado', 404);
         }
-        
+
         const verifyUserAssigned = await UserTeams.findOne({
             where: {
                 userId: taskDTO.assignedTo,
@@ -65,6 +65,46 @@ class TaskService {
         });
         return tasks;
     }
+
+    async getTaskById(taskId, userID) {
+        const task = await Tasks.findByPk(taskId);
+        if (!task) { throw new AppError('Tarefa não encontrada', 404); } // 1
+
+        const projectOfTask = task.projectId; // 2
+
+        const teamOfTask = await Projects.findByPk(projectOfTask);
+        if (!teamOfTask) { throw new AppError('Projeto da tarefa não encontrado', 404); } // 3
+
+        const verifyProject = await Projects.findByPk(projectOfTask);
+        if (!verifyProject) { throw new AppError('Projeto não encontrado', 404); } 
+
+        const verifyUserInTeam = await UserTeams.findOne({ // 4
+            where: {
+                userId: userID,
+                teamId: verifyProject.teamId,
+            }
+        });
+        if (!verifyUserInTeam) { throw new AppError('Usuário não pertence à equipe do projeto', 403); }
+
+        const taskDetails = await Tasks.findAll({
+            where: { id: taskId },
+            attributes: ['id', 'title', 'description', 'status'],
+            include: [
+                {
+                    model: Projects,
+                    attributes: ['id', 'name'],
+                },
+                {
+                    model: User,
+                    as: 'assignedUser',
+                    attributes: ['id', 'name', 'email'],
+                }
+            ]
+        });
+        return taskDetails;
+    }
+
+    async 
 }
 
 const taskService = new TaskService();

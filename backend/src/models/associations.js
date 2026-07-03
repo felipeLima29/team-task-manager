@@ -31,10 +31,12 @@ Projects.hasMany(Tasks, {
 
 Tasks.belongsTo(User, {
     foreignKey: 'assignedTo',
+    as: 'assignedUser',
 });
 
 User.hasMany(Tasks, {
     foreignKey: 'assignedTo',
+    as: 'assignedTasks',
 });
 
 
