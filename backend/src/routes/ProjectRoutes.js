@@ -5,5 +5,6 @@ import projectController from "../controllers/ProjectController.js";
 const projectRoutes = Router();
 
 projectRoutes.post('/teams/:teamId/projects', authMiddleware, projectController.register);
+projectRoutes.get('/teams/:teamId/projects', authMiddleware, projectController.listMyProjects);
 
 export default projectRoutes;
