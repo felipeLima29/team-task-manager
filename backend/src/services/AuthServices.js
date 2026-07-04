@@ -29,7 +29,7 @@ class AuthService {
         if (!user) {
             throw new AppError("Usuário não encontrado.", 404);
         }
-        const isPasswordValid =  comparePassword(userDto.password, user.password)
+        const isPasswordValid = await comparePassword(userDto.password, user.password)
 
         if(!isPasswordValid) {
             throw new AppError("Senha errada.", 401);

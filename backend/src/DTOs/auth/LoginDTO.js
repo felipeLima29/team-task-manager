@@ -1,3 +1,4 @@
+import AppError from "../../errors/AppError.js";
 import { isValidEmail } from "../../utils/validators.js";
 
 class LoginDTO {
