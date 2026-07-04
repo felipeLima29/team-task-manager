@@ -44,7 +44,14 @@ class TaskService {
             projectId: projectId,
             assignedTo: taskDTO.assignedTo,
         })
-        return task;
+        return {
+            id: task.id,
+            title: task.title,
+            description: task.description,
+            status: task.status,
+            projectId: task.projectId,
+            assignedTo: task.assignedTo,
+        };
     }
 
     async listTasks(projectId, userId) {

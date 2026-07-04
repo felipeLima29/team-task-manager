@@ -3,34 +3,22 @@ import AppError from "../errors/AppError.js";
 import projectService from "../services/ProjectServices.js";
 
 class ProjectController {
-    async register(req, res) {
+    async register(req, res, next) {
         try {
             const projectDTO = new CreateProjectDTO(req.body);
             const project = await projectService.register(projectDTO, req.params.teamId, req.userId);
             return res.status(201).json(project);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async listMyProjects(req, res) {
+    async listMyProjects(req, res, next) {
         try {
             const projects = await projectService.listMyProjects(req.userId, req.params.teamId);
             return res.status(200).json(projects);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 }

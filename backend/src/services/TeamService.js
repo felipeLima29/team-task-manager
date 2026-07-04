@@ -15,7 +15,10 @@ class TeamService {
             role: 'admin',
         });
 
-        return team;
+        return {
+            id: team.id,
+            name: team.name,
+        };
     }
 
     async listAll(userId) {
@@ -68,7 +71,12 @@ class TeamService {
             teamId: teamId,
             role: memberDTO.role,
         });
-        return newMember;
+        return {
+            id: newMember.id,
+            userId: newMember.userId,
+            teamId: newMember.teamId,
+            role: newMember.role,
+        };
     }
 
     async listMembersTeam(teamId, userId) {

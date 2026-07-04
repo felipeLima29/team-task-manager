@@ -5,80 +5,51 @@ import AppError from "../errors/AppError.js";
 import taskService from "../services/TaskServices.js";
 
 class TaskController {
-    async createTask(req, res) {
+    async createTask(req, res, next) {
         try {
             const taskDTO = new CreateTaskDTO(req.body);
             const task = await taskService.createTask(taskDTO, req.params.projectId, req.userId);
             return res.status(201).json(task);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async listTasks(req, res) {
+    async listTasks(req, res, next) {
         try {
             const tasks = await taskService.listTasks(req.params.projectId, req.userId);
             return res.status(200).json(tasks);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async listTaskById(req, res) {
+    async listTaskById(req, res, next) {
         try {
             const task = await taskService.getTaskById(req.params.taskId, req.userId);
             return res.status(200).json(task);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async updateTaskStatus(req, res) {
+    async updateTaskStatus(req, res, next) {
         try {
             const statusDTO = new UpdateStatusTaskDTO(req.body);
             const task = await taskService.updateTaskStatus(req.params.taskId, statusDTO, req.userId);
             return res.status(200).json(task);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async updateTask(req, res) {
+    async updateTask(req, res, next) {
         try {
             const taskDTO = new UpdateTaskDTO(req.body);
             const task = await taskService.updateTask(req.params.taskId, taskDTO, req.userId);
             return res.status(200).json(task);
         } catch (error) {
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 

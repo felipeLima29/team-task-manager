@@ -8,6 +8,7 @@ import userRoutes from './routes/UserRoutes.js';
 import './models/associations.js';
 import projectRoutes from './routes/ProjectRoutes.js';
 import taskRoutes from './routes/TaskRoutes.js';
+import errorHandler from './middleware/errorHandler.js';
 dotenv.config();
 
 const app = express();
@@ -24,6 +25,8 @@ app.use('/team', teamRoutes);
 app.use('/user', userRoutes);
 app.use('/project', projectRoutes);
 app.use(taskRoutes);
+
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
     console.log('Servidor rodando na porta ', process.env.PORT);

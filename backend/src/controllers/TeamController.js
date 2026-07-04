@@ -4,66 +4,41 @@ import AppError from "../errors/AppError.js";
 import teamService from "../services/TeamService.js";
 
 class TeamController {
-    async register(req, res) {
+    async register(req, res, next) {
         try {
             const createTeamDTO = new CreateTeamDTO(req.body);
             const createTeam = await teamService.register(createTeamDTO, req.userId);
             return res.status(201).json(createTeam);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async listAll(req, res) {
+    async listAll(req, res, next) {
         try {
             const teams = await teamService.listAll(req.userId);
             return res.json(teams);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async addMember(req, res) {
+    async addMember(req, res, next) {
         try {
             const memberDTO = new AddMemberDTO(req.body);
             const addedMember = await teamService.addMember(memberDTO, req.params.teamId, req.userId);
             return res.status(201).json(addedMember);
-
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 
-    async listMembersTeam(req, res) {
+    async listMembersTeam(req, res, next) {
         try {
             const members = await teamService.listMembersTeam(req.params.teamId, req.userId);
             return res.json(members);
         } catch (error) {
-            console.log(error);
-            if (error instanceof AppError) {
-                return res.status(error.statusCode).json({ error: error.message });
-            }
-            return res.status(500).json({
-                error: "Erro interno do servidor. Tente novamente mais tarde.",
-            });
+            next(error);
         }
     }
 }

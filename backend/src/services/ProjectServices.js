@@ -22,7 +22,11 @@ class ProjectService {
             name: dto.name,
             teamId: teamId,
         });
-        return project;
+        return {
+            id: project.id,
+            name: project.name,
+            teamId: project.teamId,
+        };
     }
 
     async listMyProjects(userId, teamId) {
