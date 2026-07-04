@@ -8,5 +8,7 @@ taskRoutes.post('/projects/:projectId/tasks', authMiddleware, taskController.cre
 taskRoutes.get('/projects/:projectId/tasks', authMiddleware, taskController.listTasks);
 taskRoutes.get('/tasks/:taskId', authMiddleware, taskController.listTaskById);
 taskRoutes.patch('/tasks/:taskId/status', authMiddleware, taskController.updateTaskStatus);
+taskRoutes.patch('/tasks/:taskId', authMiddleware, taskController.updateTask);
+taskRoutes.delete('/tasks/:taskId', authMiddleware, taskController.deleteTask);
 
 export default taskRoutes;

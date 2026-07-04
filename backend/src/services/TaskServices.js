@@ -126,6 +126,59 @@ class TaskService {
         await verifyTask.save();
         return verifyTask;
     }
+
+    async updateTask(taskId, taskDTO, userId) {
+        const verifyTask = await Tasks.findByPk(taskId, {
+            attributes: ['id', 'title', 'description', 'status', 'projectId', 'assignedTo'],
+        });
+        if (!verifyTask) { throw new AppError('Tarefa não encontrada', 404); }
+        const projectOfTask = verifyTask.projectId;
+
+        const verifyProject = await Projects.findByPk(projectOfTask);
+        if (!verifyProject) { throw new AppError('Projeto não encontrado', 404); }
+
+        const verifyUserInTeam = await UserTeams.findOne({
+            where: {
+                userId,
+                teamId: verifyProject.teamId,
+            }
+        });
+        if (!verifyUserInTeam) { throw new AppError('Usuário não pertence à equipe do projeto', 403); }
+
+        if(taskDTO.title) {
+            verifyTask.title = taskDTO.title;
+        }
+        if(taskDTO.description) {
+            verifyTask.description = taskDTO.description;
+        }
+        if(taskDTO.assignedTo) {
+            verifyTask.assignedTo = taskDTO.assignedTo;
+        }
+        await verifyTask.save();
+        return verifyTask;
+    }
+
+    async deleteTask(taskId, userId) {
+        const verifyTask = await Tasks.findByPk(taskId, {
+            attributes: ['id', 'title', 'description', 'status', 'projectId'],
+        });
+        if (!verifyTask) { throw new AppError('Tarefa não encontrada', 404); }
+        const projectOfTask = verifyTask.projectId;
+
+        const verifyProject = await Projects.findByPk(projectOfTask);
+        if (!verifyProject) { throw new AppError('Projeto não encontrado', 404); }
+
+        const verifyUserInTeam = await UserTeams.findOne({
+            where: {
+                userId,
+                teamId: verifyProject.teamId,
+            }
+        });
+        if (!verifyUserInTeam) { throw new AppError('Usuário não pertence à equipe do projeto', 403); }
+
+        await verifyTask.destroy();
+        return { message: "Tarefa deletada com sucesso." };
+    }
 }
 
 const taskService = new TaskService();

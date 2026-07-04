@@ -1,5 +1,6 @@
 import CreateTaskDTO from "../DTOs/task/CreateTaskDTO.js";
 import UpdateStatusTaskDTO from "../DTOs/task/UpdateStatusTaskDTO.js";
+import UpdateTaskDTO from "../DTOs/task/UpdateTaskDTO.js";
 import AppError from "../errors/AppError.js";
 import taskService from "../services/TaskServices.js";
 
@@ -57,6 +58,35 @@ class TaskController {
             return res.status(200).json(task);
         } catch (error) {
             console.log(error);
+            if (error instanceof AppError) {
+                return res.status(error.statusCode).json({ error: error.message });
+            }
+            return res.status(500).json({
+                error: "Erro interno do servidor. Tente novamente mais tarde.",
+            });
+        }
+    }
+
+    async updateTask(req, res) {
+        try {
+            const taskDTO = new UpdateTaskDTO(req.body);
+            const task = await taskService.updateTask(req.params.taskId, taskDTO, req.userId);
+            return res.status(200).json(task);
+        } catch (error) {
+            if (error instanceof AppError) {
+                return res.status(error.statusCode).json({ error: error.message });
+            }
+            return res.status(500).json({
+                error: "Erro interno do servidor. Tente novamente mais tarde.",
+            });
+        }
+    }
+
+    async deleteTask(req, res) {
+        try {
+            const task = await taskService.deleteTask(req.params.taskId, req.userId);
+            return res.status(200).json({ message: "Tarefa deletada com sucesso." });
+        } catch (error) {
             if (error instanceof AppError) {
                 return res.status(error.statusCode).json({ error: error.message });
             }
