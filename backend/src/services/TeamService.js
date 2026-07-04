@@ -1,3 +1,5 @@
+import AddMemberResponseDTO from "../DTOs/team/AddMemberResponseDTO.js";
+import CreateTeamResponseDTO from "../DTOs/team/CreateTeamResponseDTO.js";
 import AppError from "../errors/AppError.js";
 import Teams from "../models/Teams.js";
 import User from "../models/User.js";
@@ -15,10 +17,7 @@ class TeamService {
             role: 'admin',
         });
 
-        return {
-            id: team.id,
-            name: team.name,
-        };
+        return new CreateTeamResponseDTO(team);
     }
 
     async listAll(userId) {
@@ -71,12 +70,7 @@ class TeamService {
             teamId: teamId,
             role: memberDTO.role,
         });
-        return {
-            id: newMember.id,
-            userId: newMember.userId,
-            teamId: newMember.teamId,
-            role: newMember.role,
-        };
+        return new AddMemberResponseDTO(newMember);
     }
 
     async listMembersTeam(teamId, userId) {

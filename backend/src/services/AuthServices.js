@@ -4,6 +4,7 @@ import User from "../models/User.js";
 import authConfig from "../config/auth.js";
 import { cryptPassword } from "../utils/hashPassword.js";
 import { comparePassword } from "../utils/comparePassword.js";
+import AuthResponseDTO from "../DTOs/auth/AuthResponseDTO.js";
 
 class AuthService {
     async register(userDto) {
@@ -20,7 +21,7 @@ class AuthService {
 
         const { password, ...userWithoutPassword } = user.toJSON();
 
-        return userWithoutPassword;
+        return new AuthResponseDTO(userWithoutPassword);
     }
 
     async login(userDto) {

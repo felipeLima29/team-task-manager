@@ -1,3 +1,4 @@
+import TaskResponseDTO from "../DTOs/task/TaskResponseDTO.js";
 import AppError from "../errors/AppError.js";
 import Projects from "../models/Projects.js";
 import Tasks from "../models/Tasks.js";
@@ -44,14 +45,7 @@ class TaskService {
             projectId: projectId,
             assignedTo: taskDTO.assignedTo,
         })
-        return {
-            id: task.id,
-            title: task.title,
-            description: task.description,
-            status: task.status,
-            projectId: task.projectId,
-            assignedTo: task.assignedTo,
-        };
+        return new TaskResponseDTO(task);
     }
 
     async listTasks(projectId, userId) {

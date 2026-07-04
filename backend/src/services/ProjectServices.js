@@ -1,3 +1,4 @@
+import CreateProjectResponseDTO from "../DTOs/project/CreateProjectResponseDTO.js";
 import AppError from "../errors/AppError.js";
 import Projects from "../models/Projects.js";
 import Teams from "../models/Teams.js";
@@ -22,11 +23,7 @@ class ProjectService {
             name: dto.name,
             teamId: teamId,
         });
-        return {
-            id: project.id,
-            name: project.name,
-            teamId: project.teamId,
-        };
+        return new CreateProjectResponseDTO(project);
     }
 
     async listMyProjects(userId, teamId) {
