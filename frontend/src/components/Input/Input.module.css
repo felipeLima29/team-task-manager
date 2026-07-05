@@ -1,0 +1,22 @@
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.inputGroup label {
+    color: white;
+    font-weight: 500;
+}
+
+.input {
+    padding: 14px;
+    border-radius: 8px;
+    height: 30px;
+    background-color: #4c3c5f;
+    opacity: 0.6;
+    color:wheat;
+    border: none;
+    outline: none;
+}

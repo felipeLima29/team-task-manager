@@ -1,9 +1,8 @@
+import AppRoutes from "./routes/AppRoutes"
 
 function App() {
 
-  return (
-    <h1>Team Task Manager</h1>
-  )
+  return <AppRoutes />;
 }
 
 export default App
