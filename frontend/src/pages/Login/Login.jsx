@@ -1,3 +1,4 @@
+import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./Login.module.css";
 
@@ -29,6 +30,10 @@ export default function Login() {
                             type="password"
                             placeholder="Digite seu password"
                         />
+
+                        <Button type="submit">
+                            Entrar
+                        </Button>
                     </form>
                 </div>
             </div>
