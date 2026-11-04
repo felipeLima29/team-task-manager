@@ -1,8 +1,40 @@
+import { useState } from "react";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./Login.module.css";
+import { login } from "../../services/AuthServices";
 
 export default function Login() {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+        setError("");
+
+        try {
+
+            const data = await login({ email, password });
+            console.log("Login bem sucedido:", data);
+            
+        } catch (error) {
+
+            const message = error.response?.data?.message || "Erro ao fazer login";
+            setError(message);
+
+            console.error("Erro ao fazer login:", message);
+        } finally {
+            setLoading(false);
+        }
+
+    }
+
     return (
         <div className={styles.loginContainer}>
 
@@ -16,12 +48,14 @@ export default function Login() {
                     <h3 className={styles.title}>Welcome Back</h3>
                     <p className={styles.text}>Digite suas informações abaixo!</p>
 
-                    <form className={styles.inputs}>
+                    <form className={styles.inputs} onSubmit={handleSubmit}>
                         <Input
                             label="E-mail"
                             name="email"
                             type="email"
                             placeholder="Digite seu e-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
 
                         <Input
@@ -29,10 +63,14 @@ export default function Login() {
                             name="password"
                             type="password"
                             placeholder="Digite seu password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        <Button type="submit">
-                            Entrar
+                        <Button
+                            type="submit" disabled={loading}
+                        >
+                            {loading ? "Carregando..." : "Entrar"}
                         </Button>
                     </form>
                 </div>

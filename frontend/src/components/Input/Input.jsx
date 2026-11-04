@@ -11,7 +11,7 @@ export default function Input({
 
     return (
         <div className={styles.inputGroup}>
-            <label htmlFor={name}>
+            <label htmlFor={name} className={styles.label}>
                 {label}
             </label>
 

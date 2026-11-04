@@ -15,9 +15,9 @@
     border-radius: 8px;
     height: 30px;
     width: 300px;
-    background-color: #4c3c5f;
+    background-color: transparent;
     opacity: 0.6;
     color:wheat;
-    border: none;
+    border: 2px solid #6463FF;
     outline: none;
 }
