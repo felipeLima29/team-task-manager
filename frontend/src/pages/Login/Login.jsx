@@ -3,12 +3,14 @@ import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./Login.module.css";
 import { useAuth } from "../../hooks/useAuth";
-
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login() {
 
-    const { login, user } = useAuth();
+    const navigate = useNavigate();
+
+    const { login } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +28,8 @@ export default function Login() {
         try {
             
             await login({ email, password });
-            console.log("Login bem-sucedido!", user.name);
+            
+            navigate("/dashboard");
 
         } catch (error) {
 
