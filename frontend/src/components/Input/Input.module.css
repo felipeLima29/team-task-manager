@@ -1,3 +1,9 @@
+.label {
+    font-family: var(--font-primary);
+    font-weight: var(--font-bold);
+    color: white;
+}
+
 .inputGroup {
     display: flex;
     flex-direction: column;
@@ -5,10 +11,6 @@
     width: 100%;
 }
 
-.inputGroup label {
-    color: white;
-    font-weight: 500;
-}
 
 .input {
     padding: 14px;
@@ -17,7 +19,7 @@
     width: 300px;
     background-color: transparent;
     opacity: 0.6;
-    color:wheat;
+    color: white;
     border: 2px solid #6463FF;
     outline: none;
 }

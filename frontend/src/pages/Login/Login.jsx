@@ -2,9 +2,13 @@ import { useState } from "react";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./Login.module.css";
-import { login } from "../../services/AuthServices";
+import { useAuth } from "../../hooks/useAuth";
+
+
 
 export default function Login() {
+
+    const { login, user } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -13,16 +17,17 @@ export default function Login() {
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
+
         e.preventDefault();
 
         setLoading(true);
         setError("");
 
         try {
-
-            const data = await login({ email, password });
-            console.log("Login bem sucedido:", data);
             
+            await login({ email, password });
+            console.log("Login bem-sucedido!", user.name);
+
         } catch (error) {
 
             const message = error.response?.data?.message || "Erro ao fazer login";
