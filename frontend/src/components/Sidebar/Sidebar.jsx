@@ -7,9 +7,7 @@ export default function Sidebar() {
         <aside className={styles.sidebar}>
 
             <div className={styles.logo}>
-
-                Aplicação de Gestão de Tarefas
-
+                
             </div>
 
             <nav className={styles.navigation}>
