@@ -25,17 +25,20 @@ export default function Dashboard() {
 
                     <StatCard
                         tittle="Projeto ativos"
-                        description="10"
                     />
+
                     <StatCard
                         tittle="Projetos finalizados"
                     />
+
                     <StatCard
                         tittle="Tarefas pendentes"
                     />
+
                     <StatCard
                         tittle="Tarefas atrasados"
                     />
+                    
                 </div>
 
 
