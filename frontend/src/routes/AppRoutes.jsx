@@ -6,6 +6,7 @@ import DashboardLayout from "../layouts/DashboardLayout";
 import Tasks from "../pages/Tasks/Tasks";
 import Settings from "../pages/Settings/Settings";
 import Profile from "../pages/Profile/Profile";
+import Teams from "../pages/Teams/Teams";
 
 export default function AppRoutes() {
     return (
@@ -18,6 +19,8 @@ export default function AppRoutes() {
                 <Route path="/dashboard" element={<Dashboard />} />
 
                 <Route path="/tasks" element={<Tasks />} />
+
+                <Route path="/teams" element={<Teams />} />
 
                 <Route path="/profile" element={<Profile />} />
 

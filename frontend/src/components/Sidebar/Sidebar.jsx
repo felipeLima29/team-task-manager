@@ -29,6 +29,14 @@ export default function Sidebar() {
                 </NavLink>
 
                 <NavLink
+                    to="/teams"
+                    className={({ isActive }) => isActive ? styles.active : ''
+                    }
+                >
+                    Times
+                </NavLink>
+
+                <NavLink
                     to="/profile"
                     className={({ isActive }) => isActive ? styles.active : ''
                     }

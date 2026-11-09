@@ -1,6 +1,39 @@
-.dashboard{
+.dashboard {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.search {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 10px;
+    width: 140vh;
+    min-height: 12vh;
+    padding: 20px;
+    margin: 10px 10px 10px 10px;
+    background-color: #1e1e2d;
+    color: white;
+    border-radius: 8px;
+    font-family: var(--font-primary);
+}
+
+.content {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: 10px;
+    width: 140vh;
+    min-height: 84vh;
+    padding: 12px;
+    background-color: #1e1e2d;
+    border-radius: 8px;
+    font-family: var(--font-primary);
+}
+
+.statCard {
+    display: flex;
+    flex-direction: row;
 }
