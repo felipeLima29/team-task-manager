@@ -3,6 +3,7 @@ import Teams from './Teams.js';
 import Projects from './Projects.js';
 import Tasks from './Tasks.js';
 import UserTeams from './UserTeams.js';
+import UserProjects from './UserProjects.js';
 
 
 // =========================
@@ -56,4 +57,23 @@ User.hasMany(UserTeams, {
 
 Teams.hasMany(UserTeams, {
     foreignKey: 'teamId',
+});
+
+
+// =========================
+
+UserProjects.belongsTo(User, {
+    foreignKey: 'userId',
+});
+
+UserProjects.belongsTo(Projects, {
+    foreignKey: 'projectId'
+});
+
+User.hasMany(UserProjects, {
+    foreignKey: 'userId',
+});
+
+Projects.hasMany(UserProjects, {
+    foreignKey: 'projectId'
 });

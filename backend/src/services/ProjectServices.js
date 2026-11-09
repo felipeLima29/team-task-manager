@@ -2,6 +2,7 @@ import CreateProjectResponseDTO from "../DTOs/project/CreateProjectResponseDTO.j
 import AppError from "../errors/AppError.js";
 import Projects from "../models/Projects.js";
 import Teams from "../models/Teams.js";
+import UserProjects from "../models/UserProjects.js";
 import UserTeams from "../models/UserTeams.js";
 
 class ProjectService {
@@ -23,6 +24,13 @@ class ProjectService {
             name: dto.name,
             teamId: teamId,
         });
+
+        await UserProjects.create({
+            userId: userId,
+            projectId: project.id,
+            role: 'admin',
+        });
+
         return new CreateProjectResponseDTO(project);
     }
 
